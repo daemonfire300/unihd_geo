@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+{% if profile %}
+	<div>
+		<h3>Friendlist</h3>
+		<ul>
+			{% for friend in profile.friends.all %}
+			<li>{{ friend }}{% if not friend.accepted %} <i>(pending request)</i>{% endif %}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div>
+		<h3>{{ profile.user.username }} ({{ profile.user.firstname }} {{ profile.user.lastname }})</h3>
+		<ul>
+			<li>You play as {{ profile.playerclass }}</li>
+		</ul>
+		<div>
+			{% load comments %}
+			{% render_comment_list for profile.user %}
+			{% if user.is_authenticated %}
+			    {% get_comment_form for profile.user as form %}
+			    <form action="{% comment_form_target %}" method="POST">
+			    {% csrf_token %}
+			    {{ form.comment }}
+			    {{ form.honeypot }}
+			    {{ form.content_type }}
+			    {{ form.object_pk }}
+			    {{ form.timestamp }}
+			    {{ form.security_hash }}
+			    <input type="hidden" name="next" value="/member/profile" />
+			    <input type="submit" value="Add comment" id="id_submit" />
+			    </form>
+			{% else %}
+			    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+</body>
+</html>
