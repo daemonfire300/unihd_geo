@@ -2,8 +2,11 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+PLAYER_CLASSES = (('hunter', 'hunter'), ('engineer','engineer'), ('scout','scout'))
+
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    playerclass = forms.ChoiceField(required=True, choices=PLAYER_CLASSES)
 
     class Meta:
         model = User
