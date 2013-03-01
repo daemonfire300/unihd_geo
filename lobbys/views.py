@@ -1,5 +1,7 @@
 # import the logging library
 import logging
+from django.http.response import HttpResponse
+from django.utils import simplejson
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -27,3 +29,8 @@ def create(request):
 def show(request, lobby_id):
     lobby = get_object_or_404(Lobby, id=lobby_id)
     return render(request, 'lobbys/show.html', {"lobby": lobby})
+
+@login_required(login_url='/member/login/')
+def listplayers(request, lobby_id):
+    lobby = get_object_or_404(Lobby, id=lobby_id)
+    return HttpResponse(simplejson.dumps(lobby.players.all()), 'application/json')
