@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+#id_honeypot {
+    display: none;
+}
+
+body div.center{
+	margin-left: 10%;
+	margin-right: 10%;
+}

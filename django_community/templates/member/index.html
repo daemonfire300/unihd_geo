@@ -14,21 +14,28 @@
 		<ul>
 			<li>You play as {{ profile.playerclass }}</li>
 		</ul>
+		<hr />
 		<div>
 			{% load comments %}
 			{% render_comment_list for profile.user %}
 			{% if user.is_authenticated %}
 			    {% get_comment_form for profile.user as form %}
-			    <form action="{% comment_form_target %}" method="POST">
-			    {% csrf_token %}
-			    {{ form.comment }}
-			    {{ form.honeypot }}
-			    {{ form.content_type }}
-			    {{ form.object_pk }}
-			    {{ form.timestamp }}
-			    {{ form.security_hash }}
-			    <input type="hidden" name="next" value="/member/profile" />
-			    <input type="submit" value="Add comment" id="id_submit" />
+			    <form class="form-horizontal" action="{% comment_form_target %}" method="POST">
+				    <div class="control-group">
+					    {% csrf_token %}
+					    {{ form.comment }}
+					    {{ form.honeypot }}
+					    {{ form.content_type }}
+					    {{ form.object_pk }}
+					    {{ form.timestamp }}
+					    {{ form.security_hash }}
+				    </div>
+				    <div class="control-group">
+					    <input type="hidden" name="next" value="/member/profile" />
+					    <button type="submit" id="id_submit" class="btn" />
+					    	Add comment
+					    </button>
+				    </div>
 			    </form>
 			{% else %}
 			    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>

@@ -22,5 +22,6 @@ urlpatterns = patterns('',
     url(r'^member/login/$', 'django.contrib.auth.views.login', {'template_name': 'member/login.html'}),
     url(r'^member/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/polls/1'}),
     url(r'^member/profile/$', 'member.views.index'),
+    url(r'^member/register/$', 'member.views.register'),
     #(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
 )
