@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Grandmaster Programmer', 'django@accountr.eu'),
 )
 
 MANAGERS = ADMINS
@@ -128,6 +128,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'polls',
     'member',
+    'game',
+    'lobbys',
     #'bootstrap_toolkit',
 )
 

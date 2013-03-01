@@ -6,10 +6,13 @@ class UserProfile(models.Model):
     playername = models.CharField(max_length=100)
     playerclass = models.CharField(max_length=64)
     friends = models.ManyToManyField(User, through='Friendship', related_name='friends+')
+    games_player = models.IntegerField(default=0)
+    experience = models.BigIntegerField(default=0)
     
     def __unicode__(self):
         return self.playername + " (%s)" % self.user.username
-    
+
+
 class Friendship(models.Model):
     profile = models.ForeignKey(UserProfile)
     user = models.ForeignKey(User)

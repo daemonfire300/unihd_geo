@@ -23,5 +23,7 @@ urlpatterns = patterns('',
     url(r'^member/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/polls/1'}),
     url(r'^member/profile/$', 'member.views.index'),
     url(r'^member/register/$', 'member.views.register'),
+    url(r'^lobby/create/$', 'lobbys.views.create'),
+    url(r'^lobby/(?P<lobby_id>\d+)/$', 'lobbys.views.show'),
     #(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
 )

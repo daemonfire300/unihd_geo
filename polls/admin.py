@@ -2,6 +2,8 @@ from polls.models import Poll
 from polls.models import Choice
 from member.models import UserProfile
 from member.models import Friendship
+from game.models import Game
+from lobbys.models import Lobby
 
 from django.contrib import admin
 
@@ -26,3 +28,5 @@ admin.site.register(Poll, PollAdmin)
 admin.site.register(Choice)
 admin.site.register(UserProfile)
 admin.site.register(Friendship, FriendshipAdmin)
+admin.site.register(Game)
+admin.site.register(Lobby)
