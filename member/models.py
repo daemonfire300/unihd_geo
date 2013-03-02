@@ -9,6 +9,14 @@ class UserProfile(models.Model):
     games_player = models.IntegerField(default=0)
     experience = models.BigIntegerField(default=0)
     
+    def get_lobby(self):
+        try:
+            lobbies = self.lobbies.all()
+            lobby = lobbies[0]
+            return lobby
+        except IndexError:
+            return False
+        
     def __unicode__(self):
         return self.playername + " (%s)" % self.user.username
 

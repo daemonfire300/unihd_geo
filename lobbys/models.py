@@ -19,7 +19,7 @@ class FinishedLobby(models.Model):
 
 class Lobby(models.Model):
     owner = models.OneToOneField(UserProfile)
-    players = models.ManyToManyField(UserProfile, through='PlayersLobby', related_name='players+')
+    players = models.ManyToManyField(UserProfile, through='PlayersLobby', related_name="lobbies")
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=250)
     max_players = models.SmallIntegerField(default=5)

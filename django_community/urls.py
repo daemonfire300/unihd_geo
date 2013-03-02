@@ -26,5 +26,6 @@ urlpatterns = patterns('',
     url(r'^lobby/create/$', 'lobbys.views.create'),
     url(r'^lobby/(?P<lobby_id>\d+)/$', 'lobbys.views.show'),
     url(r'^lobby/(?P<lobby_id>\d+)/list/$', 'lobbys.views.listplayers'),
+    url(r'^lobby/(?P<lobby_id>\d+)/join/$', 'lobbys.views.join'),
     #(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
 )

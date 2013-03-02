@@ -12,9 +12,15 @@
 	<div>
 		<ul>
 			{% for player in lobby.players.all %}
-			<li>player (Kick) (Add as Friend) (Send Message)</li> 
+			<li>{{ player }} (Kick) (Add as Friend) (Send Message)</li> 
 			{% endfor %}
 		</ul>
+		{% if user.get_lobby.id != lobby.id %}
+			<form method="POST" action="/lobby/{{ lobby.id }}/join/">
+				{% csrf_token %}
+				<button type="submit" class="btn">Join Lobby</button>
+			</form>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

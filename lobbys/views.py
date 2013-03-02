@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from lobbys.forms import LobbyCreationForm
 from lobbys.models import Lobby
+from lobbys.models import PlayersLobby
 
 @login_required(login_url='/member/login/')
 def create(request):
@@ -28,9 +29,27 @@ def create(request):
 @login_required(login_url='/member/login/')
 def show(request, lobby_id):
     lobby = get_object_or_404(Lobby, id=lobby_id)
-    return render(request, 'lobbys/show.html', {"lobby": lobby})
+    user = request.user.userprofile
+    return render(request, 'lobbys/show.html', {"lobby": lobby, "user": user})
 
 @login_required(login_url='/member/login/')
 def listplayers(request, lobby_id):
     lobby = get_object_or_404(Lobby, id=lobby_id)
     return HttpResponse(simplejson.dumps(lobby.players.all()), 'application/json')
+
+@login_required(login_url='/member/login/')
+def join(request, lobby_id):
+    if request.method == 'POST':
+        lobby = get_object_or_404(Lobby, id=lobby_id)
+        user = request.user.userprofile
+        if lobby.max_players > lobby.players.count():
+            if user.get_lobby() is False:
+                assoc = PlayersLobby(lobby=lobby, player=user)
+                assoc.save()
+                return render(request, 'lobbys/show.html', {"lobby": lobby, "user": user})
+            elif user.get_lobby().id == lobby.id:
+                return render(request, 'lobbys/show.html', {"lobby": lobby, "user": user})
+            else:
+                return HttpResponseRedirect("/member/profile/")
+        else:
+            return render(request, 'lobbys/show.html', {"lobby": lobby, "full": True})
