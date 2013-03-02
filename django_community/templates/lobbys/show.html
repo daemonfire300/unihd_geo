@@ -1,26 +1,43 @@
 {% extends "base.html" %} {% block title %}Viewing Lobby > {{ lobby }}
-{% endblock %} {% block content %}
-<div>
-	<h1>{{ lobby }}</h1>
-	<p class="lead">by {{ lobby.owner }}</p>
-	<div>
-		<blockquote>
-			<p>{{ lobby.description }}</p>
-		</blockquote>
-	</div>
-	<hr />
-	<div>
-		<ul>
-			{% for player in lobby.players.all %}
-			<li>{{ player }} (Kick) (Add as Friend) (Send Message)</li> 
-			{% endfor %}
-		</ul>
-		{% if user.get_lobby.id != lobby.id %}
-			<form method="POST" action="/lobby/{{ lobby.id }}/join/">
-				{% csrf_token %}
-				<button type="submit" class="btn">Join Lobby</button>
-			</form>
-		{% endif %}
+{% endblock %} 
+{% block content %}
+<div class="row">
+	<div class="span9">
+		<h1>{{ lobby }}</h1>
+		<p class="lead">by {{ lobby.owner }}</p>
+		<div>
+			<blockquote>
+				<p>{{ lobby.description }}</p>
+			</blockquote>
+		</div>
+		<div class="row">
+			<div class="span6">
+				<div>
+					<ul>
+						{% for player in lobby.players.all %}
+						<li>{{ player }} (Kick) (Add as Friend) (Send Message)</li> 
+						{% endfor %}
+					</ul>
+					{% if user.get_lobby.id != lobby.id %}
+					<form method="POST" action="/lobby/{{ lobby.id }}/join/">
+						{% csrf_token %}
+						<button type="submit" class="btn">Join Lobby</button>
+					</form>
+					{% endif %}
+				</div>
+			</div>
+			<div class="span3 lobby-friends border-radius5px">
+				{% if is_owner %}
+				<ul>
+					{% for friendship in user.get_friendship %} 
+					{% if friendship.accepted %}
+					<li>{{ friendship }} <a href="/lobby/{{ lobby.id }}/invite/{{ friendship.friend_profile.id }}">Add</a></li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

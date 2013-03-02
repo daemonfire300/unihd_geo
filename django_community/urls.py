@@ -14,10 +14,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^comments/', include('django.contrib.comments.urls')),
-    url(r'^polls/$', 'polls.views.index'),
-    url(r'^polls/(?P<poll_id>\d+)/$', 'polls.views.detail'),
-    url(r'^polls/(?P<poll_id>\d+)/results/$', 'polls.views.results'),
-    url(r'^polls/(?P<poll_id>\d+)/vote/$', 'polls.views.vote'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^member/login/$', 'django.contrib.auth.views.login', {'template_name': 'member/login.html'}),
     url(r'^member/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/polls/1'}),

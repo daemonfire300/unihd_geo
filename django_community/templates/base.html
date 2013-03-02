@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="{{ STATIC_URL }}css/main.css" rel="stylesheet" media="screen">
-	</head>
-	<body>
-		<div class="center">
-			{% block content %}
-			{% endblock %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link href="{{ STATIC_URL }}css/main.css" rel="stylesheet"
+	media="screen">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<ul class="nav nav-pills">
+				<li><a href="/member/profile/">Profile</a></li>
+				<li><a href="/member/logout/">Logout</a></li>
+				<li><a href="/member/login/">Login</a></li>
+				<li><a href="/lobby/all/">Lobbies</a></li>
+			</ul>
 		</div>
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
-		<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-	</body>
+	</div>
+	<div class="row">
+		<div class="span12">{% block content %} {% endblock %}</div>
+	</div>
+</div>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+	<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>

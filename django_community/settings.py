@@ -125,8 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.comments',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    'polls',
+    'django.contrib.admindocs',
     'member',
     'game',
     'lobbys',

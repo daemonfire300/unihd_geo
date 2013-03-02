@@ -1,10 +1,21 @@
 @CHARSET "UTF-8";
 
 #id_honeypot {
-    display: none;
+	display: none;
 }
 
-body div.center{
+body div.center {
 	margin-left: 10%;
 	margin-right: 10%;
+}
+
+div.lobby-friends {
+	background-color: #C9E79C;
+}
+
+.border-radius5px {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
 }

@@ -13,7 +13,6 @@ from django.http import HttpResponseRedirect
 @login_required(login_url='/member/login/')
 def index(request):
     userprofile = request.user.userprofile
-    print userprofile.friends.all()
     return render(request, 'member/index.html', {"profile": userprofile})
 
 def register(request):

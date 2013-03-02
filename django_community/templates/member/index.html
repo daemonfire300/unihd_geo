@@ -4,8 +4,8 @@
 	<div>
 		<h3>Friendlist</h3>
 		<ul>
-			{% for friend in profile.friends.all %}
-			<li>{{ friend }}{% if not friend.accepted %} <i>(pending request)</i>{% endif %}</li>
+			{% for friendship in profile.get_friendship %}
+			<li>{{ friendship }}{% if not friendship.accepted %} <i>(pending request)</i>{% endif %}</li>
 			{% endfor %}
 		</ul>
 	</div>

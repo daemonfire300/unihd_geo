@@ -5,7 +5,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     playername = models.CharField(max_length=100)
     playerclass = models.CharField(max_length=64)
-    friends = models.ManyToManyField(User, through='Friendship', related_name='friends+')
+    friends = models.ManyToManyField("self", through='Friendship', related_name='friendship', symmetrical=False)
     games_player = models.IntegerField(default=0)
     experience = models.BigIntegerField(default=0)
     
@@ -16,19 +16,30 @@ class UserProfile(models.Model):
             return lobby
         except IndexError:
             return False
+    def is_owner(self, lobby=None):
+        if lobby is not None:
+            if lobby.owner.id == self.id:
+                return True
+            else:
+                return False
+        else:
+            return False
+        
+    def get_friendship(self):
+        return Friendship.objects.filter(own_profile=self)
         
     def __unicode__(self):
         return self.playername + " (%s)" % self.user.username
 
 
 class Friendship(models.Model):
-    profile = models.ForeignKey(UserProfile)
-    user = models.ForeignKey(User)
+    own_profile = models.ForeignKey(UserProfile, related_name="me")
+    friend_profile = models.ForeignKey(UserProfile, related_name="friend")
     accepted = models.BooleanField(default=False)
     
     def visualized_relation(self):
-        return "%s &#8594; %s" % (self.profile.playername, self.user.username)
+        return "%s &#8594; %s" % (self.own_profile.playername, self.friend_profile.playername)
     visualized_relation.allow_tags = True
     
     def __unicode__(self):
-        return self.user.username
+        return self.friend_profile.playername

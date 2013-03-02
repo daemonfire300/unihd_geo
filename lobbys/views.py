@@ -30,7 +30,8 @@ def create(request):
 def show(request, lobby_id):
     lobby = get_object_or_404(Lobby, id=lobby_id)
     user = request.user.userprofile
-    return render(request, 'lobbys/show.html', {"lobby": lobby, "user": user})
+    is_owner = user.is_owner(lobby=lobby)
+    return render(request, 'lobbys/show.html', {"lobby": lobby, "user": user, "is_owner": is_owner})
 
 @login_required(login_url='/member/login/')
 def listplayers(request, lobby_id):
