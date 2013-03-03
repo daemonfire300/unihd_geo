@@ -6,25 +6,29 @@
 	rel="stylesheet" media="screen">
 <link href="{{ STATIC_URL }}css/main.css" rel="stylesheet"
 	media="screen">
+<link href="{{ STATIC_URL }}jgrowl/jquery.jgrowl.css" rel="stylesheet"
+	media="screen">
+	<title>{% block title %}{% endblock %} </title>
 </head>
 <body>
-<div class="container">
-	<div class="row">
-		<div class="span12">
-			<ul class="nav nav-pills">
-				<li><a href="/member/profile/">Profile</a></li>
-				<li><a href="/member/logout/">Logout</a></li>
-				<li><a href="/member/login/">Login</a></li>
-				<li><a href="/lobby/all/">Lobbies</a></li>
-			</ul>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-pills">
+					<li><a href="/member/profile/">Profile</a></li>
+					<li><a href="/member/logout/">Logout</a></li>
+					<li><a href="/member/login/">Login</a></li>
+					<li><a href="/lobby/all/">Lobbies</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+			<div class="span12">{% block content %} {% endblock %}</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="span12">{% block content %} {% endblock %}</div>
-	</div>
-</div>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 	<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{ STATIC_URL }}jgrowl/jquery.jgrowl.js"></script>
 </body>
 </html>

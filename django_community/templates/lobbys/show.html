@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %}Viewing Lobby > {{ lobby }}
-{% endblock %} 
+{% extends "base.html" %} 
+{% block title %}Viewing Lobby > {{ lobby }}{% endblock %} 
 {% block content %}
 <div class="row">
 	<div class="span9">
@@ -31,7 +31,7 @@
 				<ul>
 					{% for friendship in user.get_friendship %} 
 					{% if friendship.accepted %}
-					<li>{{ friendship }} <a href="/lobby/{{ lobby.id }}/invite/{{ friendship.friend_profile.id }}">Add</a></li>
+					<li>{{ friendship }} <a class="js-lobby-invite-player" href="/lobby/{{ lobby.id }}/invite/{{ friendship.friend_profile.id }}">Add</a></li>
 					{% endif %}
 					{% endfor %}
 				</ul>
@@ -40,4 +40,21 @@
 		</div>
 	</div>
 </div>
+<script>
+
+function handle_invitation(response, textStatus, jqXHR){
+	console.log(response);
+	$.jGrowl(response.data.text, { header: response.type });
+}
+
+$(function(){
+	$(".js-lobby-invite-player").on("click", function(event){
+		var obj = $(this);
+		href = obj.attr("href");
+		console.log(href);
+		$.getJSON(href, handle_invitation);
+		return false;
+	});
+});
+</script>
 {% endblock %}

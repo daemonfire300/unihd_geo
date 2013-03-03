@@ -27,6 +27,9 @@ class UserProfile(models.Model):
         
     def get_friendship(self):
         return Friendship.objects.filter(own_profile=self)
+    
+    def get_friendship_requests(self):
+        return Friendship.objects.filter(friend_profile=self, accepted=False)
         
     def __unicode__(self):
         return self.playername + " (%s)" % self.user.username

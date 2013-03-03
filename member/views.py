@@ -9,11 +9,13 @@ from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.forms import UserCreationForm
 from member.forms import UserCreateForm
 from django.http import HttpResponseRedirect
+from lobbys.models import Invitation
 
 @login_required(login_url='/member/login/')
 def index(request):
-    userprofile = request.user.userprofile
-    return render(request, 'member/index.html', {"profile": userprofile})
+    user = request.user.userprofile
+    lobby_invitations = Invitation.objects.filter(player=user, state=2)
+    return render(request, 'member/index.html', {"profile": user, "invitations": lobby_invitations})
 
 def register(request):
     if request.method == 'POST':

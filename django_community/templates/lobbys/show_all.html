@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% block title %} Viewing all lobbies {% endblock %} 
+{% block content %}
+<div class="row">
+	<div class="span12">
+		<h1>All currently open lobbies</h1>
+		<div class="row">
+			<div class="span10">
+				<ul>
+						{% for lobby in lobbies %}
+						<li><a href="{% url 'lobbys.views.show' lobby.id %}">{{ lobby }}</a> <b>( {{ lobby.players.count }} / {{ lobby.max_players }})</b></li> 
+						{% endfor %}
+					</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

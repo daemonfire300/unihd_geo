@@ -27,4 +27,4 @@ class Game(models.Model):
             logger.warning("Game is already paused or in a state where it can not be paused. Current state %s" % self.state)
     
     def __unicode__(self):
-        return self.title
+        return self.state

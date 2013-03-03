@@ -7,6 +7,12 @@ STATES = {
               "closed" : 0
               }
 
+INVITATION_STATES = {
+              "accepted" : 1,
+              "rejected" : 0,
+              "onhold" : 2
+              }
+
 class FinishedLobby(models.Model):
     owner = models.ForeignKey(UserProfile)
     title = models.CharField(max_length=128)
@@ -43,3 +49,9 @@ class Lobby(models.Model):
 class PlayersLobby(models.Model):
     player = models.ForeignKey(UserProfile)
     lobby = models.ForeignKey(Lobby)
+
+class Invitation(models.Model):
+    player = models.ForeignKey(UserProfile)
+    lobby = models.ForeignKey(Lobby)
+    issuer = models.ForeignKey(UserProfile, related_name="issuer")
+    state = models.SmallIntegerField(default=INVITATION_STATES["onhold"])

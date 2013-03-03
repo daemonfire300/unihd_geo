@@ -7,6 +7,10 @@
 			{% for friendship in profile.get_friendship %}
 			<li>{{ friendship }}{% if not friendship.accepted %} <i>(pending request)</i>{% endif %}</li>
 			{% endfor %}
+			<hr />
+			{% for friendship_request in profile.get_friendship_requests %}
+			<li>{{ friendship_request.own_profile }} asks to be your friend</li>
+			{% endfor %}
 		</ul>
 	</div>
 	<div>
