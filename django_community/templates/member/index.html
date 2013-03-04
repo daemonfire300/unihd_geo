@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 {% if profile %}
-	<div>
-		<h3>Friendlist</h3>
-		<ul>
-			{% for friendship in profile.get_friendship %}
-			<li>{{ friendship }}{% if not friendship.accepted %} <i>(pending request)</i>{% endif %}</li>
-			{% endfor %}
-			<hr />
-			{% for friendship_request in profile.get_friendship_requests %}
-			<li>{{ friendship_request.own_profile }} asks to be your friend</li>
-			{% endfor %}
-		</ul>
+	<div class="row">
+		<div class="span6">
+			<h4>Friendlist</h4>
+			<ul>
+				{% for friendship in profile.get_friendship %}
+				<li>{{ friendship }}{% if not friendship.accepted %} <i>(pending request)</i>{% endif %}</li>
+				{% endfor %}
+				<hr />
+				{% for friendship_request in profile.get_friendship_requests %}
+				<li>{{ friendship_request.own_profile }} asks to be your friend <a href="{% url 'member.views.accept_friendrequest' friend_id=friendship_request.own_profile.id action=1 %}">Accept</a> | <a href="{% url 'member.views.accept_friendrequest' friend_id=friendship_request.own_profile.id action=0 %}">Decline</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="span6">
+			<h4>Invites</h4>
+			<ul>
+				{% for invitation in invitations %}
+				<li>You have been invited to {{ invitation }} by {{ invitation.issuer }} <a href="{% url 'lobbys.views.response_invite' lobby_id=invitation.lobby.id action=1 %}">Join</a> | <a href="{% url 'lobbys.views.response_invite' lobby_id=invitation.lobby.id action=0 %}">Decline</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
-	<div>
-		<h3>{{ profile.user.username }} ({{ profile.user.firstname }} {{ profile.user.lastname }})</h3>
+	<div class="row">
+		<h3>{{ profile.user.username }} ({{ profile.user.firstname }} {{ profile.user.lastname }} / {{ profile.user.email }})</h3>
 		<ul>
 			<li>You play as <b>{{ profile.playerclass }}</b><h4>{{ profile.experience }} XP</h4></li>
 		</ul>
@@ -35,7 +45,7 @@
 					    {{ form.security_hash }}
 				    </div>
 				    <div class="control-group">
-					    <input type="hidden" name="next" value="/member/profile" />
+					    <input type="hidden" name="next" value="/member/profile/" />
 					    <button type="submit" id="id_submit" class="btn" />
 					    	Add comment
 					    </button>

@@ -55,3 +55,6 @@ class Invitation(models.Model):
     lobby = models.ForeignKey(Lobby)
     issuer = models.ForeignKey(UserProfile, related_name="issuer")
     state = models.SmallIntegerField(default=INVITATION_STATES["onhold"])
+    
+    def __unicode__(self):
+        return self.lobby

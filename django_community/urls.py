@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.contrib.gis import admin as gisadmin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -15,11 +16,14 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^comments/', include('django.contrib.comments.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^geoadmin/', include(gisadmin.site.urls)),
     #('^accounts/', include('django.contrib.auth.urls')),
     url(r'^member/login/$', 'django.contrib.auth.views.login', {'template_name': 'member/login.html'}),
-    url(r'^member/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/polls/1'}),
+    url(r'^member/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/member/login/'}),
     url(r'^member/profile/$', 'member.views.index'),
     url(r'^member/register/$', 'member.views.register'),
+    url(r'^member/request/(?P<friend_id>\d+)/(?P<action>\d+)/$', 'member.views.accept_friendrequest'),
+    url(r'^member/request/send/(?P<friend_id>\d+)/$', 'member.views.send_friendrequest'),
     url(r'^lobby/create/$', 'lobbys.views.create'),
     url(r'^lobby/all/$', 'lobbys.views.show_all'),
     url(r'^lobby/(?P<lobby_id>\d+)/$', 'lobbys.views.show'),
