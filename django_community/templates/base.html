@@ -9,6 +9,10 @@
 <link href="{{ STATIC_URL }}jgrowl/jquery.jgrowl.css" rel="stylesheet"
 	media="screen">
 	<title>{% block title %}{% endblock %} </title>
+	
+	{% load socketio_tags %}
+    {% socketio %}
+    
 </head>
 <body>
 	<div class="container">
@@ -24,11 +28,40 @@
 		</div>
 		<div class="row">
 			<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+			<div id="chat">
+				<ul>
+				</ul>
+			</div>
 			<div class="span12">{% block content %} {% endblock %}</div>
 		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 	<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 	<script src="{{ STATIC_URL }}jgrowl/jquery.jgrowl.js"></script>
+	<input type="hidden" id="session_key" value="{{ request.session.session_key }}">
+	<script type="text/javascript">
+	    $(function(){
+	    	socket = new io.Socket();
+		    socket.connect();
+		    send = function(msg){
+		    	socket.send({message: msg, session_key: false});
+		    };
+		    socket.on('connect', function() {
+		        socket.subscribe('global_chat');
+		        socket.send({"session_key": $('#session_key').val()});
+		        send("hello world");
+		    });
+		    socket.on('message', function(data){
+		    	console.log("received message")
+		    	console.log(data);
+		    	console.log(Date(data.timestamp));
+		    	if(data.display){
+		    		$('#chat ul').append('<li>'+Date(data.timestamp)+' '+data.username+' wrote: '+data.message+'</li>')
+		    	}
+		    });
+		    
+		    
+	    });
+    </script>
 </body>
 </html>

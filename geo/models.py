@@ -7,3 +7,8 @@ class Street(models.Model):
     
     def __unicode__(self):
         return self.name
+    
+class Playground(models.Model):
+    name = models.CharField(max_length=128)
+    area = models.PolygonField()
+    objects = models.GeoManager()
