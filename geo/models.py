@@ -12,3 +12,9 @@ class Playground(models.Model):
     name = models.CharField(max_length=128)
     area = models.PolygonField()
     objects = models.GeoManager()
+    
+class Building(models.Model):
+    name = models.CharField(max_length=128)
+    hash = models.CharField(max_length=232)
+    poly = models.PolygonField()
+    objects = models.GeoManager()
